@@ -1,25 +1,29 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import Balance from './components/Balance';
+import TransactionInput from './components/TransactionInput';
+import TransactionHistory from './components/TransactionHistory';
 import './App.css';
+import { Titulo } from './styled/styled';
 
-function App() {
+const App = () => {
+  const [transactions, setTransactions] = useState([]);
+
+  const addTransaction = (transaction) => {
+    setTransactions([...transactions, transaction]);
+  };
+
+  const handleTitleClick = () => {
+    window.location.reload();
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Titulo onClick={handleTitleClick} style={{ cursor: 'pointer' }}>Balanço financeiro</Titulo>
+      <Balance transactions={transactions} />
+      <TransactionInput addTransaction={addTransaction} />
+      <TransactionHistory transactions={transactions} />
     </div>
   );
-}
+};
 
 export default App;
